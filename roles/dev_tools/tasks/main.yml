@@ -5,4 +5,5 @@
       - build-essential
       - cmake
       - gdb
+      - libffi-dev
     state: present
