@@ -1,0 +1,8 @@
+---
+- hosts: local
+  become: yes
+  roles:
+    - common
+    - dev_tools
+    - languages
+
