@@ -1,0 +1,8 @@
+---
+- name: Install development tools
+  apt:
+    name:
+      - build-essential
+      - cmake
+      - gdb
+    state: present
