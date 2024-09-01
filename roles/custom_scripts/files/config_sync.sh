@@ -4,7 +4,8 @@
 SOURCE_DIR="$HOME"
 
 # 同期先のディレクトリ
-DESTINATION_DIR="$GHQ_ROOT/github.com/7shpaper/dotfiles"
+GHQ_ROOT=`ghq root`
+DESTINATION_DIR="$GHQ_ROOT/7shpaper/dotfiles"
 
 # 同期したいファイルとディレクトリのリスト
 FILES_TO_SYNC=(
