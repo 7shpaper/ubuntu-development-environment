@@ -1,0 +1,5 @@
+---
+- name: Restart config-sync service
+  systemd:
+    name: config-sync
+    state: restarted

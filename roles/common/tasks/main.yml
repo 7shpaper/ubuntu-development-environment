@@ -12,4 +12,5 @@
       - curl
       - wget
       - tig
+      - inotify-tools
     state: present

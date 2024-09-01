@@ -1,0 +1,18 @@
+[Unit]
+Description=Configuration Synchronization Service
+After=network.target
+
+[Service]
+ExecStart={{ scripts_dir }}/{{ sync_script_name }}
+Restart=always
+User={{ ansible_user_id }}
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+WorkingDirectory={{ scripts_dir }}
+
+# セキュリティ関連の設定
+ProtectSystem=full
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

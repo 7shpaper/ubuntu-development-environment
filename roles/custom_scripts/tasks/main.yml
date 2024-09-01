@@ -1,0 +1,43 @@
+---
+- name: デプロイと管理スクリプト
+  set_fact:
+    scripts_dir: /home/tshpaper/src/custom_scripts
+    sync_script_name: config_sync.sh
+
+- name: スクリプトディレクトリの作成
+  file:
+    path: "{{ scripts_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: 同期スクリプトのコピー
+  copy:
+    src: "files/{{ sync_script_name }}"
+    dest: "{{ scripts_dir }}/{{ sync_script_name }}"
+    mode: '0755'
+
+- name: cron ジョブの設定（オプション）
+  cron:
+    name: "設定ファイル同期"
+    minute: "0"
+    hour: "*/6"
+    job: "{{ scripts_dir }}/{{ sync_script_name }}"
+
+- name: スクリプトの実行（即時実行が必要な場合）
+  command: "{{ scripts_dir }}/{{ sync_script_name }}"
+  async: 3600
+  poll: 0
+
+- name: systemdサービスファイルの作成
+  template:
+    src: templates/config-sync.service.j2
+    dest: /etc/systemd/system/config-sync.service
+    mode: '0644'
+  notify: Restart config-sync service
+
+- name: config-sync サービスの有効化と開始
+  systemd:
+    name: config-sync
+    enabled: yes
+    state: started
+    daemon_reload: yes

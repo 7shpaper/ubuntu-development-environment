@@ -1,8 +1,11 @@
 ---
 - hosts: local
   become: yes
+  vars:
+    ansible_user_id: tshpaper
   roles:
     - common
     - dev_tools
     - languages
+    - custom_scripts
 
